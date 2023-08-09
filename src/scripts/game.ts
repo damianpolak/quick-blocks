@@ -14,8 +14,6 @@ let game: Phaser.Game;
 let emitter: Phaser.Events.EventEmitter;
 let controller: Controller;
 
-// export const test: number = 123;
-
 const config = {
   type: Phaser.AUTO,
   backgroundColor: '#ffffff',
