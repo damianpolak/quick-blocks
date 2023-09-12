@@ -1,0 +1,1 @@
+export type ImageObject = Phaser.GameObjects.Image;
