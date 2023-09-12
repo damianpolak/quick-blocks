@@ -1,11 +1,13 @@
 import { ImageObject } from "../../interfaces/game.interface";
 import { Align } from "../../utils/align";
+import { Timer } from "../timer";
 
 export default class MainScene extends Phaser.Scene {
 
   private block: ImageObject;
   private colorArray: number[] = [];
   private centerBlock: ImageObject;
+  private timer: Timer;
 
   constructor() {
     super({ key: 'MainScene' })
@@ -24,7 +26,6 @@ export default class MainScene extends Phaser.Scene {
     let yPosCurrBlock: number = 0;
     let counter: number = 0;
     
-    
     for(let i = 0; i < 5; i++) {
       for(let j = 0; j < 5; j++) {
         this.block = this.add.image(0, 0, 'blocks');
@@ -32,7 +33,6 @@ export default class MainScene extends Phaser.Scene {
         this.block.displayWidth = (this.game.config.width as number) / 5;
         this.block.displayHeight = (this.game.config.height as number) / 5;
         this.block.setFrame(this.colorArray[counter]);
-        // this.block.setOrigin(0, 0);
         this.block.x = xPosCurrBlock + this.block.displayWidth / 2;
         this.block.y = yPosCurrBlock + this.block.displayHeight / 2;
 
@@ -53,6 +53,11 @@ export default class MainScene extends Phaser.Scene {
     this.pickColor();
 
     this.input.on('gameobjectdown', this.selectBlock, this);
+    this.timer = new Timer({ scene: this });
+    this.timer.x = this.centerBlock.x;
+    this.timer.y = this.centerBlock.y;
+    this.timer.setCallback(this.timeUp);
+    this.timer.start();
   }
 
   private selectBlock(pointer: PointerEvent, block: ImageObject): void {
@@ -61,15 +66,21 @@ export default class MainScene extends Phaser.Scene {
       block.removeInteractive();
       this.fall(block);
       this.pickColor();
+      this.timer.reset();
     } else {
       console.log('wrong');
     }
+
+  }
+
+  timeUp(): void {
+    console.log('Time is up!');
   }
 
   private fall(block: ImageObject): void {
     this.tweens.add({
       targets: block,
-      duration: 1000,
+      duration: 200,
       scaleX: 0,
       scaleY: 0
     })

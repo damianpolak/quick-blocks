@@ -1,16 +1,16 @@
 import Phaser from 'phaser';
 import MainScene from './scenes/mainScene';
 
-const DEFAULT_WIDTH = 480;
-const DEFAULT_HEIGHT = 640;
+const DEFAULT_WIDTH = 400;
+const DEFAULT_HEIGHT = 400;
 
 const config = {
   type: Phaser.AUTO,
   backgroundColor: '#000000',
   scale: {
     parent: 'phaser-game',
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
+    // mode: Phaser.Scale.FIT,
+    // autoCenter: Phaser.Scale.CENTER_BOTH,
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT
   },
