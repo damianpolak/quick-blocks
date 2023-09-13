@@ -34,21 +34,19 @@
         margin: 0;
         background-color: #ffffff;
       }
-    </style>
 
-    <noscript>Please enable javascript to continue using this application.</noscript>
-
-    <!-- installs the serviceWorker -->
-    <!-- <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js')
-        })
+      .wrapper {
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center; 
+        height: 100%;
+        background-color: #708090;
       }
-    </script> -->
+    </style>
   </head>
   <body>
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%">
+    <div class="wrapper">
       <div id="phaser-game"></div>
     </div>
   </body>
