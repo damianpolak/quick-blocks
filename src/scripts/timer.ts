@@ -1,5 +1,6 @@
-import { AlignGridConfig } from "../interfaces/utils.interface";
+import { CustomConfig } from "../interfaces/utils.interface";
 import { UIBlock } from "../utils/UIBlock";
+import MainScene from "./scenes/mainScene";
 
 export class Timer extends UIBlock {
 
@@ -7,9 +8,10 @@ export class Timer extends UIBlock {
   private graphics: Phaser.GameObjects.Graphics;
   private count: number = 100;
   private timer: Phaser.Time.TimerEvent;
-  private actionOnEnd: any;
+  private actionOnEnd: Function;
+  private callbackScope: any;
 
-  constructor(config: Partial<AlignGridConfig>) {
+  constructor(config: Partial<CustomConfig>) {
     super();
 
     this.scene = (config.scene as Phaser.Scene);
@@ -23,14 +25,15 @@ export class Timer extends UIBlock {
     const rad = (per / 100) * 360;
 
     this.graphics.clear();
-    this.graphics.fillStyle(0xffffff, .5);
+    this.graphics.fillStyle(0x3d3d3d, .8);
     this.graphics.slice(0, 0, (this.scene.game.config.width as number) * .1, Phaser.Math.DegToRad(0), Phaser.Math.DegToRad(rad));
 
     this.graphics.fillPath();
   }
 
-  setCallback(action: Function): void {
+  setCallback(action: Function, scope: any): void {
     this.actionOnEnd = action;
+    this.callbackScope = scope;
   }
 
   start(): void {
@@ -55,11 +58,10 @@ export class Timer extends UIBlock {
   tick(): void {
     this.count -= 2;
     this.setPer(this.count);
-    let scope;
 
     if(this.count <= 0) {
       this.stop();
-      this.actionOnEnd.call();
+      this.actionOnEnd.call(this.callbackScope);
     }
   }
 }

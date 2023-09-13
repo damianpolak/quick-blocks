@@ -1,13 +1,13 @@
-import { AlignGridConfig } from '../interfaces/utils.interface';
+import { CustomConfig } from '../interfaces/utils.interface';
 
 export class AlignGrid {
-  public config: AlignGridConfig;
+  public config: CustomConfig;
   public scene: Phaser.Scene;
   public cellWidth: number;
   public cellHeight: number;
   public graphics: Phaser.GameObjects.Graphics;
 
-  constructor(config: AlignGridConfig) {
+  constructor(config: CustomConfig) {
     this.config = config;
 
     if (!config.scene) {

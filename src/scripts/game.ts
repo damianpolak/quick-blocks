@@ -1,12 +1,19 @@
 import Phaser from 'phaser';
 import MainScene from './scenes/mainScene';
+import { Model } from './model';
+import OverScene from './scenes/overScene';
+import TitleScene from './scenes/titleScene';
 
-const DEFAULT_WIDTH = 400;
-const DEFAULT_HEIGHT = 400;
+const DEFAULT_WIDTH = 480;
+const DEFAULT_HEIGHT = 640;
+let model: Model;
+let game: Phaser.Game;
+
+// export const test: number = 123;
 
 const config = {
   type: Phaser.AUTO,
-  backgroundColor: '#000000',
+  backgroundColor: '#d4d4d4',
   scale: {
     parent: 'phaser-game',
     // mode: Phaser.Scale.FIT,
@@ -14,7 +21,7 @@ const config = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT
   },
-  scene: [MainScene],
+  scene: [TitleScene, MainScene, OverScene],
   physics: {
     default: 'arcade',
     arcade: {
@@ -25,5 +32,8 @@ const config = {
 };
 
 window.addEventListener('load', () => {
-  const game = new Phaser.Game(config);
+  model = new Model();
+  game = new Phaser.Game(config);
 });
+
+export { model, game };
