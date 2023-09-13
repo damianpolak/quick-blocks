@@ -140,10 +140,12 @@ export default class MainScene extends Phaser.Scene {
     this.blockGroup.children.iterate(child => {
       return this.fall(child);
     });
+
     this.time.addEvent({
       delay: 1200,
       callback: () => {
         this.scene.start('OverScene');
+        this.clickLocked = false;
         console.log('Game Over - Click locked');
       },
       callbackScope: this,

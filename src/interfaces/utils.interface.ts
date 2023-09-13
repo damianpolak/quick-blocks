@@ -2,6 +2,7 @@ export interface CustomConfig {
   scene: Phaser.Scene,
   rows: number,
   cols: number,
+  event: string,
   height?: number | string,
   width?: number | string
 }
@@ -9,9 +10,14 @@ export interface CustomConfig {
 export interface ButtonProperty {
   scale?: number,
   textScale?: number,
-  color: string,
+  style: {
+    color: string,
+    fontFamily: string
+  }
   key: string,
-  text: string
+  text: string,
+  callback: Function,
+  callbackScope: any,
 }
 
 export type ChildObject = any;

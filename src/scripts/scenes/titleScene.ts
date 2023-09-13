@@ -1,6 +1,6 @@
 import { Align } from "../../utils/align";
 import CustomButton from "../customButton";
-import { game } from "../game";
+import { emitter, game } from "../game";
 
 export default class TitleScene extends Phaser.Scene {
 
@@ -25,7 +25,7 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.titleBackground = this.add.image(0, 0, 'bg');
+        this.titleBackground = this.add.image(0, 0, 'bg');
     this.titleBackground.setOrigin(0, 0);
 
     this.titleText = this.add.text(15, 15, 'Quick Blocks', { 
@@ -35,14 +35,23 @@ export default class TitleScene extends Phaser.Scene {
 
     this.buttonStart = new CustomButton({ 
       scene: this, 
+      event: 'START_GAME',
+      // callback: this.startGame,
+      // callbackScope: this,
       key: 'blue', 
-      text: 'Start Game', 
+      text: 'Start', 
       scale: .35, 
-      textScale: 30,
-      color: '#ff0000'
+      textScale: 25,
+      style: {
+        color: '#ffffff',
+        fontFamily: 'Verdana'
+      }
     });
 
     Align.center(this.game, this.buttonStart);
+
+    emitter.on('START_GAME', this.startGame, this);
+
     // Align.scaleToGameW(this.game, this.buttonStart, .45);
 
     // this.buttonStart = this.add.image(0, 0, 'bStart');

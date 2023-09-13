@@ -8,6 +8,7 @@ const DEFAULT_WIDTH = 480;
 const DEFAULT_HEIGHT = 640;
 let model: Model;
 let game: Phaser.Game;
+let emitter: Phaser.Events.EventEmitter;
 
 // export const test: number = 123;
 
@@ -34,6 +35,7 @@ const config = {
 window.addEventListener('load', () => {
   model = new Model();
   game = new Phaser.Game(config);
+  emitter = new Phaser.Events.EventEmitter();
 });
 
-export { model, game };
+export { model, game, emitter };
