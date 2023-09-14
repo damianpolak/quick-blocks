@@ -3,12 +3,16 @@ import MainScene from './scenes/mainScene';
 import { Model } from './model';
 import OverScene from './scenes/overScene';
 import TitleScene from './scenes/titleScene';
+import SettingsScene from './scenes/settingsScene';
+import HowtoScene from './scenes/howtoScene';
+import Controller from './controller';
 
 const DEFAULT_WIDTH = 480;
 const DEFAULT_HEIGHT = 640;
 let model: Model;
 let game: Phaser.Game;
 let emitter: Phaser.Events.EventEmitter;
+let controller: Controller;
 
 // export const test: number = 123;
 
@@ -22,7 +26,7 @@ const config = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT
   },
-  scene: [TitleScene, MainScene, OverScene],
+  scene: [TitleScene, HowtoScene, SettingsScene, MainScene, OverScene],
   physics: {
     default: 'arcade',
     arcade: {
@@ -36,6 +40,7 @@ window.addEventListener('load', () => {
   model = new Model();
   game = new Phaser.Game(config);
   emitter = new Phaser.Events.EventEmitter();
+  controller = Controller.getInstance();
 });
 
-export { model, game, emitter };
+export { model, game, emitter, controller };

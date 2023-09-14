@@ -2,12 +2,13 @@ export interface CustomConfig {
   scene: Phaser.Scene,
   rows: number,
   cols: number,
-  event: string,
   height?: number | string,
   width?: number | string
 }
 
 export interface ButtonProperty {
+  event: string,
+  params: Phaser.Scene | any,
   scale?: number,
   textScale?: number,
   style: {

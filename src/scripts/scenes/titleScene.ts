@@ -1,13 +1,18 @@
 import { Align } from "../../utils/align";
+import { AlignGrid } from "../../utils/alignGrid";
+import Consts from "../consts";
 import CustomButton from "../customButton";
-import { emitter, game } from "../game";
+import { controller, emitter, game } from "../game";
 
 export default class TitleScene extends Phaser.Scene {
 
   private titleBackground: Phaser.GameObjects.Image;
   private titleText: Phaser.GameObjects.Text;
   private buttonStart: CustomButton;
-  
+  private buttonHowTo: CustomButton;
+  private buttonSettings: CustomButton;
+  private alignGrid: AlignGrid;
+
   constructor() {
     super({
       key: 'TitleScene'
@@ -25,8 +30,11 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create(): void {
-        this.titleBackground = this.add.image(0, 0, 'bg');
+    this.titleBackground = this.add.image(0, 0, 'bg');
     this.titleBackground.setOrigin(0, 0);
+
+    this.alignGrid = new AlignGrid({ scene: this, cols: 11, rows: 11 });
+    this.alignGrid.showNumbers();
 
     this.titleText = this.add.text(15, 15, 'Quick Blocks', { 
       fontSize: (this.game.config.width as number) / 10,
@@ -35,10 +43,9 @@ export default class TitleScene extends Phaser.Scene {
 
     this.buttonStart = new CustomButton({ 
       scene: this, 
-      event: 'START_GAME',
-      // callback: this.startGame,
-      // callbackScope: this,
-      key: 'blue', 
+      event: Consts.START_GAME,
+      params: this,
+      key: 'green', 
       text: 'Start', 
       scale: .35, 
       textScale: 25,
@@ -47,10 +54,41 @@ export default class TitleScene extends Phaser.Scene {
         fontFamily: 'Verdana'
       }
     });
+    this.alignGrid.placeAtIndex(60, this.buttonStart);
 
-    Align.center(this.game, this.buttonStart);
+    this.buttonHowTo = new CustomButton({ 
+      scene: this, 
+      event: Consts.HOW_TO_PLAY,
+      params: this,
+      key: 'blue', 
+      text: 'How to play', 
+      scale: .35, 
+      textScale: 25,
+      style: {
+        color: '#ffffff',
+        fontFamily: 'Verdana'
+      }
+    });
+    this.alignGrid.placeAtIndex(71, this.buttonHowTo);
 
-    emitter.on('START_GAME', this.startGame, this);
+    this.buttonSettings = new CustomButton({ 
+      scene: this, 
+      event: Consts.SETTINGS,
+      params: this,
+      key: 'blue', 
+      text: 'Settings', 
+      scale: .35, 
+      textScale: 25,
+      style: {
+        color: '#ffffff',
+        fontFamily: 'Verdana'
+      }
+    });
+    this.alignGrid.placeAtIndex(82, this.buttonSettings);
+
+    // emitter.on(Consts.START_GAME, controller.startGame, this);
+    // emitter.on(Consts.HOW_TO_PLAY, controller.showHowto, this);
+    // emitter.on(Consts.SETTINGS, controller.showSettings, this);
 
     // Align.scaleToGameW(this.game, this.buttonStart, .45);
 
@@ -65,4 +103,12 @@ export default class TitleScene extends Phaser.Scene {
   startGame(): void {
     this.scene.start('MainScene');
   }
+
+  // showHowto(): void {
+  //   this.scene.start('HowtoScene');
+  // }
+
+  // showSettings(): void {
+  //   this.scene.start('SettingsScene');
+  // }
 }

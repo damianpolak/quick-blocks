@@ -11,6 +11,7 @@ export default class CustomButton extends UIBlock {
   private callback: Function;
   private callbackScope: any;
   private event: string;
+  private params: any;
 
   constructor(config: Partial<CustomConfig & ButtonProperty>) {
     super();
@@ -50,6 +51,10 @@ export default class CustomButton extends UIBlock {
     if(config.event) {
       this.event = config.event;
     }
+
+    if(config.params) {
+      this.params = config.params;
+    }
   }
 
   private buttonPressed(): void {
@@ -59,13 +64,14 @@ export default class CustomButton extends UIBlock {
       if(this.callbackScope) {
         this.callback.call(this.callbackScope);
       } 
-      // else {
-      //   this.callback.apply(this.callbackScope);
-      // }
     }
 
     if(this.event) {
-      emitter.emit(this.event);
+      if(this.params) {
+        emitter.emit(this.event, this.params);
+      } else {
+        emitter.emit(this.event);
+      }
     }
   }
 }
