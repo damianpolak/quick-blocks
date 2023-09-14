@@ -27,6 +27,7 @@ const config = {
     height: DEFAULT_HEIGHT
   },
   scene: [TitleScene, HowtoScene, SettingsScene, MainScene, OverScene],
+  // scene: [TitleScene, HowtoScene, SettingsScene, MainScene, OverScene],
   physics: {
     default: 'arcade',
     arcade: {

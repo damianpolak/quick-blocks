@@ -85,24 +85,11 @@ export default class TitleScene extends Phaser.Scene {
       }
     });
     this.alignGrid.placeAtIndex(82, this.buttonSettings);
-
-    // emitter.on(Consts.START_GAME, controller.startGame, this);
-    // emitter.on(Consts.HOW_TO_PLAY, controller.showHowto, this);
-    // emitter.on(Consts.SETTINGS, controller.showSettings, this);
-
-    // Align.scaleToGameW(this.game, this.buttonStart, .45);
-
-    // this.buttonStart = this.add.image(0, 0, 'bStart');
-    // Align.scaleToGameW(this.game, this.buttonStart, .45);
-    // Align.center(this.game, this.buttonStart);
-
-    // this.buttonStart.setInteractive();
-    // this.buttonStart.on('pointerdown', this.startGame, this);
   }
 
-  startGame(): void {
-    this.scene.start('MainScene');
-  }
+  // startGame(): void {
+  //   this.scene.start('MainScene');
+  // }
 
   // showHowto(): void {
   //   this.scene.start('HowtoScene');

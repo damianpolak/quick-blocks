@@ -8,6 +8,7 @@ export default class Controller {
     emitter.on(Consts.START_GAME, this.startGame, this);
     emitter.on(Consts.HOW_TO_PLAY, this.showHowto, this);
     emitter.on(Consts.SETTINGS, this.showSettings, this);
+    emitter.on(Consts.HOME, this.showHome, this);
   }
 
   public static getInstance(): Controller {
@@ -28,5 +29,9 @@ export default class Controller {
 
   showSettings(scene: Phaser.Scene): void {
     scene.scene.start('SettingsScene');
+  }
+
+  showHome(scene: Phaser.Scene): void {
+    scene.scene.start('TitleScene');
   }
 }
