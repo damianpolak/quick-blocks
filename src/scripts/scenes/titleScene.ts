@@ -28,6 +28,13 @@ export default class TitleScene extends Phaser.Scene {
     this.load.image('green', 'assets/img/green.png');
     this.load.image('orange', 'assets/img/orange.png');
     this.load.image('red', 'assets/img/red.png');
+
+    this.load.spritesheet('blocks', 'assets/img/blocks.png', { frameWidth: 64, frameHeight: 84 });
+    this.load.image('bPlayAgain', 'assets/img/bPlayAgain.png');
+    this.load.image('bStart', 'assets/img/bStart.png');
+
+    this.load.audio('click', 'assets/sfx/click.flac');
+    this.load.audio('levelup', 'assets/sfx/levelup.flac');
   }
 
   create(): void {

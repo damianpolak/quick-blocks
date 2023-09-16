@@ -14,7 +14,6 @@ export default class MainScene extends Phaser.Scene {
   private timer: Timer;
   private clickLocked = false;
   private blockGroup: Phaser.GameObjects.Group;
-  // private scoreText: Phaser.GameObjects.Text;
   private levelText: Phaser.GameObjects.Text;
 
   constructor() {
@@ -22,9 +21,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   preload(): void {
-    this.load.spritesheet('blocks', 'assets/img/blocks.png', { frameWidth: 64, frameHeight: 84 });
-    this.load.image('bPlayAgain', 'assets/img/bPlayAgain.png');
-    this.load.image('bStart', 'assets/img/bStart.png');
+
   }
 
   create(): void {
@@ -95,7 +92,8 @@ export default class MainScene extends Phaser.Scene {
       this.fall(block);
       this.pickColor();
       model.score++;
-      // this.scoreText.setText(model.score.toString());
+      this.sound.play('click');
+
       this.levelText.setText(`Level: ${model.level}\nScore: ${model.score.toString()}`);
       this.timer.reset();
     } else {
@@ -121,11 +119,13 @@ export default class MainScene extends Phaser.Scene {
   private pickColor(): void {
     if(this.colorArray.length == 0) {
       console.log('next level');
+      this.sound.play('levelup');
       model.numberOfColors++;
       model.level++;
       
       if(model.numberOfColors > Consts.MAX_COLORS) {
         model.numberOfColors = Consts.MAX_COLORS;
+        console.log(`=== max colors`);
       }
 
       this.scene.restart();
@@ -141,9 +141,9 @@ export default class MainScene extends Phaser.Scene {
     }
 
     this.centerBlock.setFrame(color);
-    console.clear();
-    console.log(`=== numberOfColors`, model.numberOfColors);
-    console.log(`=== center`, this.centerBlock);
+    // console.clear();
+    // console.log(`=== numberOfColors`, model.numberOfColors);
+    // console.log(`=== center`, this.centerBlock);
   }
 
   gameOver(): void {
