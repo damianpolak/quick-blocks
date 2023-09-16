@@ -2,8 +2,9 @@
 
 A simple game made in TypeScript (Phaser framework). The player clicks on colored blocks depending on which block appears in the central part of the screen. The game consists of 18 levels.
 
-![1](https://github.com/damianpolak/quick-blocks/assets/15640354/82e883f9-e448-449c-b15a-21f32c2f0700)
-![2](https://github.com/damianpolak/quick-blocks/assets/15640354/72854b5b-23ee-436a-9e42-c1413779c17b)
+![1](https://github.com/damianpolak/quick-blocks/assets/15640354/94274c9f-6f7e-4a20-8a36-21b036b64a1e)
+![2](https://github.com/damianpolak/quick-blocks/assets/15640354/2234eb96-6919-4e0a-83f0-ca9404f8cd28)
+
 
 ### TODO
 1. Loading screen.
