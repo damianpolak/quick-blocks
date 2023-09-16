@@ -1,5 +1,5 @@
 import Consts from "./consts";
-import { emitter } from "./game";
+import { emitter, model } from "./game";
 
 export default class Controller {
 
@@ -20,6 +20,7 @@ export default class Controller {
   }
 
   startGame(scene: Phaser.Scene): void {
+    model.reset();
     scene.scene.start('MainScene');
   }
   
@@ -32,6 +33,7 @@ export default class Controller {
   }
 
   showHome(scene: Phaser.Scene): void {
+    model.reset();
     scene.scene.start('TitleScene');
   }
 }

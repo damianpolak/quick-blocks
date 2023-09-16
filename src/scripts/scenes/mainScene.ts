@@ -1,17 +1,21 @@
 import { ImageObject } from "../../interfaces/game.interface";
 import { Align } from "../../utils/align";
+import { AlignGrid } from "../../utils/alignGrid";
+import Consts from "../consts";
 import { model } from "../game";
 import { Timer } from "../timer";
 
 export default class MainScene extends Phaser.Scene {
 
+  private titleBackground: Phaser.GameObjects.Image;
   private block: ImageObject;
   private colorArray: number[] = [];
   private centerBlock: ImageObject;
   private timer: Timer;
   private clickLocked = false;
   private blockGroup: Phaser.GameObjects.Group;
-  private scoreText: Phaser.GameObjects.Text;
+  // private scoreText: Phaser.GameObjects.Text;
+  private levelText: Phaser.GameObjects.Text;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -24,7 +28,13 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create(): void {
+    // this.scene.start('OverScene');
+    this.titleBackground = this.add.image(0, 0, 'bg-blacked');
+    this.titleBackground.setOrigin(0, 0);
+
     this.blockGroup = this.add.group();
+
+    this.colorArray = [];
 
     for(let c = 0; c < 25; c++) {
       this.colorArray.push(Phaser.Math.Between(0, model.numberOfColors));
@@ -67,12 +77,14 @@ export default class MainScene extends Phaser.Scene {
     this.timer.setCallback(this.timeUp, this);
     this.timer.start();
 
-    this.scoreText = this.add.text(0, 0, '0', { 
-      fontSize: (this.game.config.width as number) / 15,
+    this.levelText = this.add.text(15, 15, `Level: ${model.level}\nScore: ${model.score}`, { 
+      fontSize: (this.game.config.width as number) / 20,
+      fontFamily: 'Verdana',
       color: '#000'
     });
-    this.scoreText.setOrigin(0.5, 0.5);
-    Align.center(this.game, this.scoreText);
+
+    // const alignGrid = new AlignGrid({ scene: this, cols: 11, rows: 21 });
+    // alignGrid.showNumbers();
   }
 
   private selectBlock(pointer: PointerEvent, block: ImageObject): void {
@@ -83,12 +95,12 @@ export default class MainScene extends Phaser.Scene {
       this.fall(block);
       this.pickColor();
       model.score++;
-      this.scoreText.setText(model.score.toString());
+      // this.scoreText.setText(model.score.toString());
+      this.levelText.setText(`Level: ${model.level}\nScore: ${model.score.toString()}`);
       this.timer.reset();
     } else {
       this.gameOver();
     }
-
   }
 
   timeUp(): void {
@@ -110,16 +122,16 @@ export default class MainScene extends Phaser.Scene {
     if(this.colorArray.length == 0) {
       console.log('next level');
       model.numberOfColors++;
+      model.level++;
       
-      if(model.numberOfColors > 7) {
-        model.numberOfColors = 7;
+      if(model.numberOfColors > Consts.MAX_COLORS) {
+        model.numberOfColors = Consts.MAX_COLORS;
       }
 
       this.scene.restart();
       return;
     }
 
-    // const color = this.colorArray.shift() as number;
     const index = Math.random() * this.colorArray.length;
     let color = this.colorArray.splice(index, 1)[0];
 
@@ -129,14 +141,17 @@ export default class MainScene extends Phaser.Scene {
     }
 
     this.centerBlock.setFrame(color);
+    console.clear();
+    console.log(`=== numberOfColors`, model.numberOfColors);
+    console.log(`=== center`, this.centerBlock);
   }
 
   gameOver(): void {
     this.clickLocked = true;
     this.timer.stop();
     this.timer.visible = false;
-    this.scoreText.visible = false;
-    
+    this.levelText.visible = false;
+
     this.blockGroup.children.iterate(child => {
       return this.fall(child);
     });
@@ -146,7 +161,6 @@ export default class MainScene extends Phaser.Scene {
       callback: () => {
         this.scene.start('OverScene');
         this.clickLocked = false;
-        console.log('Game Over - Click locked');
       },
       callbackScope: this,
       loop: false
