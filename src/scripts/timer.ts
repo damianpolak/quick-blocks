@@ -1,5 +1,5 @@
 import { CustomConfig } from "../interfaces/utils.interface";
-import { UIBlock } from "../utils/UIBlock";
+import { UIBlock } from "../utils/uiBlock";
 import MainScene from "./scenes/mainScene";
 
 export class Timer extends UIBlock {

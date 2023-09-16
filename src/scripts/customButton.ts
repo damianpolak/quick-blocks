@@ -1,5 +1,5 @@
 import { ButtonProperty, CustomConfig } from "../interfaces/utils.interface";
-import { UIBlock } from "../utils/UIBlock";
+import { UIBlock } from "../utils/uiBlock";
 import { Align } from "../utils/align";
 import { emitter } from "./game";
 
