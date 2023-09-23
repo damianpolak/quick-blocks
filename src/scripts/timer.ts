@@ -1,6 +1,5 @@
 import { CustomConfig } from "../interfaces/utils.interface";
 import { UIBlock } from "../utils/uiBlock";
-import MainScene from "./scenes/mainScene";
 
 export class Timer extends UIBlock {
 
@@ -26,7 +25,7 @@ export class Timer extends UIBlock {
 
     this.graphics.clear();
     this.graphics.fillStyle(0x3d3d3d, .8);
-    this.graphics.slice(0, 0, (this.scene.game.config.width as number) * .1, Phaser.Math.DegToRad(0), Phaser.Math.DegToRad(rad));
+    this.graphics.slice(0, 0, (this.scene.game.config.width as number) * .08, Phaser.Math.DegToRad(0), Phaser.Math.DegToRad(rad));
 
     this.graphics.fillPath();
   }

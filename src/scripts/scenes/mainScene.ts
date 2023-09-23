@@ -7,7 +7,6 @@ import { Timer } from "../timer";
 
 export default class MainScene extends Phaser.Scene {
 
-  private titleBackground: Phaser.GameObjects.Image;
   private block: ImageObject;
   private colorArray: number[] = [];
   private centerBlock: ImageObject;
@@ -25,12 +24,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create(): void {
-    // this.scene.start('OverScene');
-    this.titleBackground = this.add.image(0, 0, 'bg-blacked');
-    this.titleBackground.setOrigin(0, 0);
-
     this.blockGroup = this.add.group();
-
     this.colorArray = [];
 
     for(let c = 0; c < 25; c++) {

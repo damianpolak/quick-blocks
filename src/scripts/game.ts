@@ -18,7 +18,7 @@ let controller: Controller;
 
 const config = {
   type: Phaser.AUTO,
-  backgroundColor: '#d4d4d4',
+  backgroundColor: '#ffffff',
   scale: {
     parent: 'phaser-game',
     // mode: Phaser.Scale.FIT,
